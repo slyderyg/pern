@@ -15,8 +15,7 @@ const TokenModel = sequelize.define('Token', {
     refreshToken: {type: DataTypes.STRING}
 });
 
-UserModel.hasOne(TokenModel);
-TokenModel.belongsTo(UserModel);
+
 
 module.exports = {
     UserModel,
