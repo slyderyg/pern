@@ -1,5 +1,5 @@
-const sequelize = require('../db')
-const { DataTypes } = require('sequelize')
+const sequelize = require('../db');
+const { DataTypes } = require('sequelize');
 
 const UserModel = sequelize.define('User', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -15,9 +15,32 @@ const TokenModel = sequelize.define('Token', {
     refreshToken: {type: DataTypes.STRING}
 });
 
+const BasketModel = sequelize.define('Basket', {
+    productId: {type: DataTypes.INTEGER}
+});
 
+const ProductModel = sequelize.define('Product', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    model: {type: DataTypes.STRING},
+    brand: {type: DataTypes.STRING},
+    price: {type: DataTypes.INTEGER},
+    description: {type: DataTypes.TEXT}
+});
+
+const CategoryModel = sequelize.define('Category', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING}
+});
+
+UserModel.hasOne(BasketModel);
+BasketModel.belongsTo(UserModel);
+CategoryModel.hasMany(ProductModel);
+ProductModel.belongsTo(CategoryModel);
 
 module.exports = {
     UserModel,
-    TokenModel
-}
+    TokenModel,
+    BasketModel,
+    ProductModel,
+    CategoryModel
+};
