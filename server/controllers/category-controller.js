@@ -13,8 +13,23 @@ class CategoryController {
     };
 
     async getAll(req, res, next) {
-        const allCategories = await categoryService.getAll();
-        return res.json(allCategories);
+        try {
+            const allCategories = await categoryService.getAll();
+            return res.json(allCategories);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+            const { id } = req.body;
+            await categoryService.delete(id);
+            return res.json('Категория удалена')
+        } catch (error) {
+            next(error);
+        }
+
     }
 };
 

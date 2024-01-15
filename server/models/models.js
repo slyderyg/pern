@@ -24,7 +24,8 @@ const ProductModel = sequelize.define('Product', {
     model: {type: DataTypes.STRING},
     brand: {type: DataTypes.STRING},
     price: {type: DataTypes.INTEGER},
-    description: {type: DataTypes.TEXT}
+    description: {type: DataTypes.TEXT},
+    img: {type: DataTypes.ARRAY(DataTypes.STRING)}
 });
 
 const CategoryModel = sequelize.define('Category', {

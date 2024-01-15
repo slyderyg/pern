@@ -1,6 +1,7 @@
 const Router = require('express');
 const userController = require('../controllers/user-controller');
 const categoryController = require('../controllers/category-controller');
+const productController = require('../controllers/product-controller');
 const router = new Router();
 const { body } = require('express-validator');
 const authMiddleware = require('../middlewares/auth-middleware');
@@ -15,5 +16,10 @@ router.get('/refresh', userController.refresh);
 
 router.post('/addcategory', authMiddleware, roleMiddleware('ADMIN'), categoryController.create);
 router.get('/getallcategories', categoryController.getAll);
+router.delete('/deletecategory', authMiddleware, roleMiddleware('ADMIN'), categoryController.delete);
+
+router.post('/addproduct', authMiddleware, roleMiddleware('ADMIN'), productController.create);
+router.get('/getallproducts', productController.getAll);
+
 
 module.exports = router;

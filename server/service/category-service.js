@@ -15,6 +15,11 @@ class CategoryService {
         const allCategories = await CategoryModel.findAll();
         return allCategories;
     }
+
+    async delete(id) {
+        await CategoryModel.destroy({where: {id}});
+        return 'Категория удалена';
+    }
 };
 
 module.exports = new CategoryService();
