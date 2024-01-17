@@ -20,6 +20,7 @@ router.delete('/deletecategory', authMiddleware, roleMiddleware('ADMIN'), catego
 
 router.post('/addproduct', authMiddleware, roleMiddleware('ADMIN'), productController.create);
 router.get('/getallproducts', productController.getAll);
+router.delete('/deleteproduct', authMiddleware, roleMiddleware('ADMIN'), productController.delete);
 
 
 module.exports = router;

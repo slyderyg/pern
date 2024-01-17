@@ -20,6 +20,16 @@ class ProductController {
         } catch (error) {
             next(error);
         }
+    };
+
+    async delete(req, res, next) {
+        try {
+            const { id } = req.body;
+            const deletedProduct = await productService.delete(id);
+            return res.json(deletedProduct);
+        } catch (error) {
+            next(error);
+        }
     }
 };
 

@@ -24,7 +24,12 @@ class ProductService {
         };
 
         return products;
-    }
+    };
+
+    async delete(id) {
+        await ProductModel.destroy({where: {id}});
+        return 'Товар удален'
+    };
 };
 
 module.exports = new ProductService();
