@@ -3,7 +3,7 @@ const ApiError = require('../exceptions/api-error');
 
 class ProductService {
     async create(CategoryId, model, brand, price, description, img) {
-        const checkProduct = await ProductModel.findOne({ where: { model } });
+        const checkProduct = await ProductModel.findOne({where:{model}});
         if (checkProduct) {
             throw ApiError.BadRequest('Такая модель уже существует');
         };

@@ -2,6 +2,7 @@ const Router = require('express');
 const userController = require('../controllers/user-controller');
 const categoryController = require('../controllers/category-controller');
 const productController = require('../controllers/product-controller');
+const basketController = require('../controllers/basket-controller');
 const router = new Router();
 const { body } = require('express-validator');
 const authMiddleware = require('../middlewares/auth-middleware');
@@ -21,6 +22,11 @@ router.delete('/deletecategory', authMiddleware, roleMiddleware('ADMIN'), catego
 router.post('/addproduct', authMiddleware, roleMiddleware('ADMIN'), productController.create);
 router.get('/getallproducts', productController.getAll);
 router.delete('/deleteproduct', authMiddleware, roleMiddleware('ADMIN'), productController.delete);
+
+router.post('/addtobasket', authMiddleware, basketController.create);
+router.delete('/removefrombasket', authMiddleware, basketController.delete);
+router.get('/getbasket', authMiddleware, basketController.getAll);
+router.patch('/setquantity', authMiddleware, basketController.setQuantity);
 
 
 module.exports = router;
