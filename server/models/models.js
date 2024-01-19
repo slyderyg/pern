@@ -16,7 +16,7 @@ const TokenModel = sequelize.define('Token', {
 });
 
 const BasketModel = sequelize.define('Basket', {
-    productId: {type: DataTypes.ARRAY(DataTypes.INTEGER)}
+    productId: {type: DataTypes.INTEGER}
 });
 
 const ProductModel = sequelize.define('Product', {
