@@ -17,7 +17,8 @@ const TokenModel = sequelize.define('Token', {
 
 const BasketModel = sequelize.define('Basket', {
     productId: {type: DataTypes.INTEGER},
-    quantity: {type: DataTypes.INTEGER}
+    quantity: {type: DataTypes.INTEGER},
+    price: {type: DataTypes.INTEGER}
 });
 
 const ProductModel = sequelize.define('Product', {
@@ -34,15 +35,24 @@ const CategoryModel = sequelize.define('Category', {
     name: {type: DataTypes.STRING}
 });
 
+const OrderModel = sequelize.define('Order', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    totalPrice: {type: DataTypes.INTEGER},
+    status: {type: DataTypes.STRING, defaultValue: 'PENDING'}
+});
+
 UserModel.hasOne(BasketModel);
 BasketModel.belongsTo(UserModel);
 CategoryModel.hasMany(ProductModel);
 ProductModel.belongsTo(CategoryModel);
+UserModel.hasMany(OrderModel);
+OrderModel.belongsTo(UserModel);
 
 module.exports = {
     UserModel,
     TokenModel,
     BasketModel,
     ProductModel,
-    CategoryModel
+    CategoryModel,
+    OrderModel
 };

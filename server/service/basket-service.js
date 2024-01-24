@@ -2,10 +2,10 @@ const {BasketModel} = require('../models/models');
 const ApiError = require('../exceptions/api-error');
 
 class BasketService {
-    async addToBasket(userId, productId, quantity) {
+    async addToBasket(userId, productId, quantity, price) {
         const checkProductInBasket = await BasketModel.findOne({where:{UserId: userId, productId}});
         if (!checkProductInBasket) {
-            const productInBasket = await BasketModel.create({UserId: userId, productId, quantity});
+            const productInBasket = await BasketModel.create({UserId: userId, productId, quantity, price});
             return 'Товар добавлен в корзину';
         } else {
             // BasketModel.update({quantity: checkProductInBasket.quantity + quantity}, {where: {UserId: userId, productId}});
@@ -27,6 +27,11 @@ class BasketService {
     async setQuantity(userId, productId, quantity) {
         BasketModel.update({quantity}, {where: {UserId: userId, productId}})
         return 'Количество товара изменено'
+    }
+
+    async clearBasket(userId) {
+        await BasketModel.destroy({where: {UserId: userId}});
+        return 'Корзина очищена'
     }
 }
 

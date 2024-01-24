@@ -30,6 +30,11 @@ class ProductService {
         await ProductModel.destroy({where: {id}});
         return 'Товар удален'
     };
+
+    async findPrice(id) {
+       const product = await ProductModel.findOne({where: {id}});
+       return product.price;
+    }
 };
 
 module.exports = new ProductService();

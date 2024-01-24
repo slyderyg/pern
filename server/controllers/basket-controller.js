@@ -1,4 +1,5 @@
 const basketService = require('../service/basket-service');
+const productService = require('../service/product-service');
 const ApiError = require('../exceptions/api-error');
 
 class BasketController {
@@ -6,7 +7,8 @@ class BasketController {
         try {
             const {productId, quantity} = req.body;
             const userId = req.user.id;
-            const productInBasket = await basketService.addToBasket(userId, productId, quantity);
+            const price = await productService.findPrice(productId);
+            const productInBasket = await basketService.addToBasket(userId, productId, quantity, price);
             return res.json(productInBasket);
         } catch (error) {
             next(error);
