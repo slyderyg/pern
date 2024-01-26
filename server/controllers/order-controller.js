@@ -8,8 +8,7 @@ class OrderController {
         try {
             const userId = req.user.id;
             const basket = await basketService.getAll(userId);
-            let totalPrice = 0;
-            basket.map(el => totalPrice += el.price*el.quantity);
+            const totalPrice = basket.reduce((acc, curr) => {return acc + curr.price*curr.quantity}, 0);
             const newOrder = await orderService.create(userId, totalPrice);
             await basketService.clearBasket(userId);
             return res.json(newOrder);

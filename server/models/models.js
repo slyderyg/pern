@@ -36,9 +36,10 @@ const CategoryModel = sequelize.define('Category', {
 });
 
 const OrderModel = sequelize.define('Order', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {type: DataTypes.STRING, primaryKey: true},
     totalPrice: {type: DataTypes.INTEGER},
-    status: {type: DataTypes.STRING, defaultValue: 'PENDING'}
+    status: {type: DataTypes.STRING},
+    confirmationUrl: {type: DataTypes.STRING}
 });
 
 UserModel.hasOne(BasketModel);
