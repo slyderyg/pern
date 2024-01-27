@@ -1,11 +1,9 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
-import LoginForm from './components/LoginForm';
-import { Context } from '.';
-import { observer } from 'mobx-react-lite';
-import { IUser } from './models/response/IUser';
-import UserService from './services/UserService';
-import { BrowserRouter } from 'react-router-dom';
+import React, { FC, useContext, useEffect} from 'react';
+import {Context} from '.';
+import {observer} from 'mobx-react-lite';
+import {BrowserRouter} from 'react-router-dom';
 import AppRouter from './components/AppRouter';
+import {ChakraProvider} from '@chakra-ui/react'
 
 const App: FC = () => {
   const {userStore} = useContext(Context);
@@ -17,9 +15,11 @@ const App: FC = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <ChakraProvider>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </ChakraProvider>
   ) 
   
 
