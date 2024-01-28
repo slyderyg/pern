@@ -1,13 +1,14 @@
-import Admin from "./pages/Admin";
+import Admin from "./pages/Account";
 import Auth from "./pages/Auth";
-import Basket from "./pages/Basket";
+import Basket from './pages/Basket';
 import ProductPage from "./pages/ProductPage";
-import Shop from "./pages/Shop";
-import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, PRODUCT_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts";
+import Shop from './pages/Shop'
+import { ACCOUNT_ROUTE, BASKET_ROUTE, SHOP_ROUTE, AUTH_ROUTE, PRODUCT_ROUTE } from "./utils/consts";
+
 
 export const authRoutes = [
     {
-        path: ADMIN_ROUTE,
+        path: ACCOUNT_ROUTE,
         Component: Admin
     },
     {
@@ -22,15 +23,11 @@ export const publicRoutes = [
         Component: Shop
     },
     {
-        path: LOGIN_ROUTE,
+        path: AUTH_ROUTE,
         Component: Auth
     },
     {
-        path: REGISTRATION_ROUTE,
-        Component: Auth
-    },
-    {
-        path: PRODUCT_ROUTE + '/:id',
+        path: PRODUCT_ROUTE,
         Component: ProductPage
     }
 ];

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { observer } from 'mobx-react-lite';
 
 const Basket = () => {
   return (
@@ -6,4 +7,4 @@ const Basket = () => {
   )
 }
 
-export default Basket
+export default observer(Basket);
