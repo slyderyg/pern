@@ -24,12 +24,32 @@ export default class CategoryStore {
         try {
             // const response = await CategoryService.fetchCategory();
             // this.setCategories(response.data)
-            const {data} = await $api.get('/getallcategories')
+            //const {data} = await $api.get('/getallcategories')
+            const {data} = await CategoryService.fetchCategory();
             this.setCategories(data);
 
         } catch (error: any) {
             console.log(error.response?.data?.message);
         }
+    }
+
+    async addCategory(name: string) {
+        try {
+            await CategoryService.addCategory(name);
+            this.fetchCategory();
+        } catch (error: any) {
+            console.log(error.response?.data?.message);
+        }
+    }
+
+    async deleteCategory(name: string) {
+        try {
+            await CategoryService.deleteCategory(name);
+            this.fetchCategory();
+        } catch (error: any) {
+            console.log(error.response?.data?.message);
+        }
+
     }
 
 }

@@ -16,8 +16,8 @@ class CategoryService {
         return allCategories;
     }
 
-    async delete(id) {
-        await CategoryModel.destroy({where: {id}});
+    async delete(name) {
+        await CategoryModel.destroy({where: {name}});
         return 'Категория удалена';
     }
 };

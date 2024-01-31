@@ -23,8 +23,8 @@ class CategoryController {
 
     async delete(req, res, next) {
         try {
-            const { id } = req.body;
-            await categoryService.delete(id);
+            const { name } = req.body;
+            await categoryService.delete(name);
             return res.json('Категория удалена')
         } catch (error) {
             next(error);
