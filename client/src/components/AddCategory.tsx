@@ -1,38 +1,46 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '..';
 import { observer } from 'mobx-react-lite';
-import { Box, Button, Container, Heading, Input, InputGroup, InputRightElement, Spacer } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, useDisclosure } from '@chakra-ui/react';
 
 
 
 const AddCategory = () => {
   const {categoryStore} = useContext(Context);
   const [newCategory, setNewCategory] = useState<string>('');
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
   useEffect(() => {
     categoryStore.fetchCategory()
   }, []);
 
-  //{categoryStore.categories.map(el => <p key={el.name}>{el.name}</p>)}
-
-  
   
   return (
     <Container maxW='1300px' mt='30px' padding='0'>
-      <InputGroup size='md' mb='20px'>
-        <Input
-          pr='4.5rem'
-          type='text'
-          placeholder='Название категории'
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-        />
-        <InputRightElement width='6rem'>
-          <Button size='xs' mx='10px' colorScheme='yellow' variant='solid' onClick={() => {categoryStore.addCategory(newCategory); setNewCategory('');}}>
-            + Добавить
-          </Button>
-        </InputRightElement>
-      </InputGroup>
+
+              <Button onClick={onOpen} colorScheme='yellow'>+ Добавить</Button>
+
+                <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Добавление категории</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      <Box borderRadius='lg' borderWidth='1px' maxW='500px'>
+                        <Input
+                          type='text'
+                          placeholder='Название категории'
+                          value={newCategory}
+                          onChange={(e) => setNewCategory(e.target.value)}
+                        />
+                      </Box>
+                    </ModalBody>
+
+                    <ModalFooter>
+                    <Button colorScheme='yellow' onClick={() => {categoryStore.addCategory(newCategory); setNewCategory(''); onClose()}}>+ Добавить</Button>
+                    </ModalFooter>
+                </ModalContent>
+                </Modal>
 
       {categoryStore.categories.map(el => 
         <Box key={el.name} borderRadius='lg' borderWidth='1px' minH='40px' display='flex' alignItems='center' mt='10px'>
