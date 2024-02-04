@@ -18,29 +18,28 @@ const AddCategory = () => {
   return (
     <Container maxW='1300px' mt='30px' padding='0'>
 
-              <Button onClick={onOpen} colorScheme='yellow'>+ Добавить</Button>
+    <Button onClick={onOpen} colorScheme='yellow'>+ Добавить</Button>
 
-                <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Добавление категории</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      <Box borderRadius='lg' borderWidth='1px' maxW='500px'>
-                        <Input
-                          type='text'
-                          placeholder='Название категории'
-                          value={newCategory}
-                          onChange={(e) => setNewCategory(e.target.value)}
-                        />
-                      </Box>
-                    </ModalBody>
-
-                    <ModalFooter>
-                    <Button colorScheme='yellow' onClick={() => {categoryStore.addCategory(newCategory); setNewCategory(''); onClose()}}>+ Добавить</Button>
-                    </ModalFooter>
-                </ModalContent>
-                </Modal>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+          <ModalHeader>Добавление категории</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box borderRadius='lg' borderWidth='1px' maxW='500px'>
+              <Input
+                type='text'
+                placeholder='Название категории'
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+              />
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='yellow' onClick={() => {categoryStore.addCategory(newCategory); setNewCategory(''); onClose()}}>+ Добавить</Button>
+          </ModalFooter>
+      </ModalContent>
+    </Modal>
 
       {categoryStore.categories.map(el => 
         <Box key={el.name} borderRadius='lg' borderWidth='1px' minH='40px' display='flex' alignItems='center' mt='10px'>

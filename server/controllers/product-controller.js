@@ -1,10 +1,12 @@
 const productService = require('../service/product-service');
 const ApiError = require('../exceptions/api-error');
 
+
 class ProductController {
     async create(req, res, next) {
         try {
-            const { CategoryId, model, brand, price, description, img } = req.body;
+            const { CategoryId, model, brand, price, description } = req.body;
+            const { img } = req.files;
             const product = await productService.create(CategoryId, model, brand, price, description, img);
             return res.json(product);
         } catch (error) {
