@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Container, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import AddCategory from '../components/AddCategory';
 import AddProduct from '../components/AddProduct';
+import EditProduct from '../components/EditProduct';
 
 const Admin = () => {
   return (
@@ -20,6 +21,7 @@ const Admin = () => {
         </TabPanel>
         <TabPanel>
           <AddProduct />
+          <EditProduct />
         </TabPanel>
         <TabPanel>
         <p>two!</p>

@@ -4,7 +4,7 @@ import { Context } from '..';
 import { observer } from 'mobx-react-lite';
 import { Box, Button, ButtonGroup, Container, Divider, Flex, Heading, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Spacer } from '@chakra-ui/react';
 import { FaUserLarge, FaHeart, FaCartShopping, FaPhone, FaLocationDot, FaGear, FaBars } from "react-icons/fa6";
-import { ACCOUNT_ROUTE, ADMIN_ROUTE, AUTH_ROUTE, BASKET_ROUTE, FAVORITES_ROUTE } from '../utils/consts';
+import { ACCOUNT_ROUTE, ADMIN_ROUTE, AUTH_ROUTE, BASKET_ROUTE, FAVORITES_ROUTE, SHOP_ROUTE } from '../utils/consts';
 
 
 const Navigation = () => {
@@ -15,7 +15,7 @@ const Navigation = () => {
     <Container maxW='1300px'>
         <Flex minWidth='max-content' mt='20px' alignItems='center' gap='2'>
         <Box >
-            <Image src='logo.png' w='200px'/>
+            <Image src='logo.png' w='200px' onClick={() => navigate(SHOP_ROUTE)} cursor='pointer'/>
         </Box>
         <Spacer />
         <ButtonGroup hideFrom='1000px' gap='1px'>

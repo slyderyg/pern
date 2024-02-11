@@ -1,8 +1,9 @@
 export interface IProduct {
+    id: number
     CategoryId: number,
     model: string,
     brand: string,
-    price: number | undefined,
+    price: number,
     description: string,
-    img: FileList | null
+    img: string[]
 }

@@ -7,16 +7,34 @@ export default class ProductStore {
 
     constructor() {
         makeAutoObservable(this);
-    }
+    };
 
     setProducts(products: IProduct[]) {
         this.products = products;
-    }
+    };
 
     async addProduct(newProduct: FormData) {
         try {
-            await ProductService.addCategory(newProduct);
-            // добавить фукцию fetch product
+            await ProductService.addProduct(newProduct);
+            this.fetchProduct();
+        } catch (error: any) {
+            console.log(error.response?.data?.message);
+        }
+    };
+
+    async fetchProduct(CategoryId?: number, page?: number, limit?: number) {
+        try {
+            const {data} = await ProductService.fetchProduct(CategoryId, page, limit);
+            this.setProducts(data.rows);
+        } catch (error: any) {
+            console.log(error.response?.data?.message);
+        }
+    };
+
+    async deleteProduct(id: number) {
+        try {
+            await ProductService.deleteProduct(id);
+            this.fetchProduct();
         } catch (error: any) {
             console.log(error.response?.data?.message);
         }
