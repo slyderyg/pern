@@ -6,11 +6,15 @@ const path = require('path');
 class ProductService {
     async create(CategoryId, model, brand, price, description, img) {
         let photos = [];
-        img.forEach(el => {
+        if (img.length > 1) {img.forEach(el => {
             let fileName = uuid.v4() + '.png';
             photos.push(fileName);
             el.mv(path.resolve(__dirname, '..', 'static', fileName))
-        });
+        })} else {
+            let fileName = uuid.v4() + '.png';
+            photos.push(fileName);
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+        }
         const checkProduct = await ProductModel.findOne({where:{model}});
         if (checkProduct) {
             throw ApiError.BadRequest('Такая модель уже существует');

@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { Context } from '..';
 import { observer } from 'mobx-react-lite';
-import { Box, Button, Container, Input, InputGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Textarea } from '@chakra-ui/react';
+import { Box, Button, Container, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Textarea } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 
 const AddProduct = () => {
@@ -14,13 +14,11 @@ const AddProduct = () => {
     const [files, setFiles] = useState<FileList>({} as FileList);
     const [description, setDescription] = useState<string>('');
 
-    
-
     const handleFiles = (e: ChangeEvent<HTMLInputElement>) => {
       e.target.files && setFiles(e.target.files);
     };
 
-    const handleClick = () => {
+    const handleClick = async () => {
       const formData = new FormData();
       formData.append('CategoryId', category);
       formData.append('model', model);
@@ -32,9 +30,29 @@ const AddProduct = () => {
         };
       };
       formData.append('description', description);
-      productStore.addProduct(formData);
+      await productStore.addProduct(formData);
+      onClose();
     };
 
+    const handleBrand = (e: ChangeEvent<HTMLInputElement>) => {
+      setBrand(e.target.value)
+    };
+
+    const handleModel = (e: ChangeEvent<HTMLInputElement>) => {
+      setModel(e.target.value)
+    };
+
+    const handlePrice = (e: ChangeEvent<HTMLInputElement>) => {
+      setPrice(e.target.value)
+    };
+
+    const handleCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+      setCategory(e.target.value)
+    };
+
+    const handleDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setDescription(e.target.value)
+    };
 
   return (
     <Container maxW='1300px' mt='30px' padding='0'>
@@ -48,14 +66,14 @@ const AddProduct = () => {
                     <ModalBody>
                     <Box borderRadius='lg' borderWidth='1px' maxW='500px'>
                         <Stack m='10px'>
-                            <Input placeholder='Брэнд' value={brand} onChange={(e) => {setBrand(e.target.value)}}/>
-                            <Input placeholder='Модель' value={model} onChange={(e) => {setModel(e.target.value)}}/>
-                            <Input placeholder='Цена' type='number' value={price} onChange={(e) => {setPrice(e.target.value)}}/>
-                            <Select placeholder='Категория' size='md' value={category} onChange={(e) => {setCategory(e.target.value)}}>
+                            <Input placeholder='Брэнд' value={brand} onChange={handleBrand}/>
+                            <Input placeholder='Модель' value={model} onChange={handleModel}/>
+                            <Input placeholder='Цена' type='number' value={price} onChange={handlePrice}/>
+                            <Select placeholder='Категория' size='md' value={category} onChange={handleCategory}>
                               {categoryStore.categories.map(el => <option key={el.id} value={el.id}>{el.name}</option>)}
                             </Select>
                             <Input type='file' p='4px' multiple onChange={handleFiles}/>
-                            <Textarea placeholder='Описание товара' value={description} onChange={(e) => {setDescription(e.target.value)}}/>
+                            <Textarea placeholder='Описание товара' value={description} onChange={handleDescription}/>
                         </Stack>
                     </Box>
                     </ModalBody>
