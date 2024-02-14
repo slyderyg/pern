@@ -2,6 +2,7 @@ const { ProductModel } = require('../models/models');
 const ApiError = require('../exceptions/api-error');
 const uuid = require('uuid');
 const path = require('path');
+const fs = require('fs');
 
 class ProductService {
     async create(CategoryId, model, brand, price, description, img) {
@@ -39,7 +40,21 @@ class ProductService {
     };
 
     async delete(id) {
+        const product = await ProductModel.findOne({where: {id}});
         await ProductModel.destroy({where: {id}});
+        if (product.img.length>1) {
+            product.img.forEach(el => {
+                fs.unlink(`./static/${el}`, err => {
+                    if(err) throw err; // не удалось удалить файл
+                    console.log('Файл успешно удалён');
+                 });
+            })
+        } else {
+            fs.unlink(`./static/${product.img[0]}`, err => {
+                if(err) throw err; // не удалось удалить файл
+                console.log('Файл успешно удалён');
+             });
+        }
         return 'Товар удален'
     };
 
