@@ -4,7 +4,7 @@ import { Context } from '..';
 import { observer } from 'mobx-react-lite';
 import { Box, Button, ButtonGroup, Container, Divider, Flex, Heading, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Spacer } from '@chakra-ui/react';
 import { FaUserLarge, FaHeart, FaCartShopping, FaPhone, FaLocationDot, FaGear, FaBars } from "react-icons/fa6";
-import { ACCOUNT_ROUTE, ADMIN_ROUTE, AUTH_ROUTE, BASKET_ROUTE, FAVORITES_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { ACCOUNT_ROUTE, ADMIN_ROUTE, AUTH_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FAVORITES_ROUTE, SHOP_ROUTE } from '../utils/consts';
 
 
 const Navigation = () => {
@@ -99,10 +99,16 @@ const Navigation = () => {
           onClick={() => userStore.isAuth? navigate(BASKET_ROUTE): navigate(AUTH_ROUTE)}>Корзина</Button>
         </ButtonGroup>
         </Flex>
-        <Divider mt='10px'/>
+        <Divider mt='10px' opacity='0.4' borderColor='black'/>
         <Flex minWidth='max-content' mt='20px' alignItems='center' gap='2'>
           <ButtonGroup gap='35px' hideBelow='800px'>
-          <Button leftIcon={<FaBars />}  color='#5a6f5d' variant='link' size='lg'>Каталог</Button>
+          <Button 
+          leftIcon={<FaBars />}  
+          color='#5a6f5d' 
+          variant='link' 
+          size='lg'
+          onClick={() => navigate(CATALOG_ROUTE)}
+          >Каталог</Button>
           <Button color='#5a6f5d' variant='link' size='lg'>О нас</Button>
           <Button color='#5a6f5d' variant='link' size='lg'>Контакты</Button>
           <Button color='#5a6f5d' variant='link' size='lg'>Оплата</Button>

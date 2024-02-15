@@ -45,13 +45,13 @@ class ProductService {
         if (product.img.length>1) {
             product.img.forEach(el => {
                 fs.unlink(`./static/${el}`, err => {
-                    if(err) throw err; // не удалось удалить файл
+                    if(err) throw err;
                     console.log('Файл успешно удалён');
                  });
             })
         } else {
             fs.unlink(`./static/${product.img[0]}`, err => {
-                if(err) throw err; // не удалось удалить файл
+                if(err) throw err;
                 console.log('Файл успешно удалён');
              });
         }

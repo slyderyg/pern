@@ -16,7 +16,7 @@ const Auth = () => {
 
     return (
         <Container maxW='450px'>
-          <FormControl mt='100px'>
+          <FormControl mt='50px'>
             <FormLabel>Адрес электронной почты</FormLabel>
             <Input type='email' value={email} onChange={(e) => setEmail(e.target.value)}/>
           </FormControl>
