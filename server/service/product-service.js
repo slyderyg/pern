@@ -8,11 +8,11 @@ class ProductService {
     async create(CategoryId, model, brand, price, description, img) {
         let photos = [];
         if (img.length > 1) {img.forEach(el => {
-            let fileName = uuid.v4() + '.png';
+            let fileName = uuid.v4() + '.jpg';
             photos.push(fileName);
             el.mv(path.resolve(__dirname, '..', 'static', fileName))
         })} else {
-            let fileName = uuid.v4() + '.png';
+            let fileName = uuid.v4() + '.jpg';
             photos.push(fileName);
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
         }
