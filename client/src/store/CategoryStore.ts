@@ -2,8 +2,6 @@ import {makeAutoObservable} from "mobx";
 import { ICategory } from "../models/response/ICategory";
 import CategoryService from "../services/CategoryService";
 
-
-
 export default class CategoryStore {
     categories = [] as ICategory[];
     isLoading = false;

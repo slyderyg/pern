@@ -26,7 +26,6 @@ const Catalog = () => {
             >{el.name}</Button>
           )}
         </Flex>
-        <Divider orientation='vertical' opacity='0.4' borderColor='black'/>
         <Flex flexWrap='wrap'>
           {productStore.products.map(el => 
             <ProductCard 
