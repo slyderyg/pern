@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Context } from '..';
-import { Button, Container, Divider, Flex } from '@chakra-ui/react';
+import { Button, Container, Flex } from '@chakra-ui/react';
 import ProductCard from '../components/ProductCard';
 
 const Catalog = () => {
@@ -14,8 +14,8 @@ const Catalog = () => {
 
   return (
     <Container maxW='1300px' mt='40px' >
-      <Flex w='100%' h='500px'>
-        <Flex direction='column' w='600px' align='flex-start'>
+      <Flex w='100%'>
+        <Flex direction='column' minW='300px' align='flex-start'>
           {categoryStore.categories.map(el => 
             <Button 
               key={el.id}

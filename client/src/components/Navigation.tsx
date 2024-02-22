@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '..';
 import { observer } from 'mobx-react-lite';
@@ -8,8 +8,12 @@ import { ACCOUNT_ROUTE, ADMIN_ROUTE, AUTH_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FA
 
 
 const Navigation = () => {
-  const {userStore} = useContext(Context);
+  const {userStore, basketStore} = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    basketStore.fetchBasket();
+  }, []);
 
   return (
     <Container maxW='1300px'>
