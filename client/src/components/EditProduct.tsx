@@ -7,7 +7,8 @@ const EditProduct = () => {
     const {productStore, categoryStore} = useContext(Context);
 
     useEffect(() => {
-        productStore.fetchProduct();
+        productStore.fetchProduct(1,9);
+        return () => {productStore.cleanStore()}
       }, []);
 
 
@@ -25,7 +26,8 @@ const EditProduct = () => {
                 objectFit='contain'
                 maxW={{ base: '100%', sm: '200px' }}
                 src={`http://localhost:5000/`+el.img[0]}
-                alt='Caffe Latte'
+                alt={el.model}
+                ml='20px'
             />
 
             <Stack>

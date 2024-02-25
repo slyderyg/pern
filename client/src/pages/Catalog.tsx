@@ -1,16 +1,30 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Context } from '..';
-import { Button, Container, Flex } from '@chakra-ui/react';
+import { Box, Button, Container, Flex } from '@chakra-ui/react';
 import ProductCard from '../components/ProductCard';
+import { useInView } from 'react-intersection-observer';
 
 const Catalog = () => {
   const {productStore, categoryStore} = useContext(Context);
+  const {ref, inView} = useInView({
+    threshold: 0.1
+  });
+  const [page, setPage] = useState(1);
+
 
   useEffect(() => {
-      categoryStore.fetchCategory();
-      productStore.fetchProduct();
-    }, []);
+    categoryStore.fetchCategory();
+    productStore.lazyLoadProducts(page);
+    setPage(page + 1);
+  }, []);
+
+  useEffect(() => {
+    if (inView && productStore.productsCount > productStore.products.length) {
+      productStore.lazyLoadProducts(page);
+      setPage(page + 1);
+    }
+  }, [inView]);
 
   return (
     <Container maxW='1300px' mt='40px' >
@@ -26,7 +40,7 @@ const Catalog = () => {
             >{el.name}</Button>
           )}
         </Flex>
-        <Flex flexWrap='wrap'>
+        <Flex flexWrap='wrap' minH='1080px'>
           {productStore.products.map(el => 
             <ProductCard 
               key={el.id} 
@@ -41,6 +55,7 @@ const Catalog = () => {
           }
         </Flex>
       </Flex>
+      <Box ref={ref} w='100%' h='50px'></Box>
     </Container>
   )
 }

@@ -7,7 +7,7 @@ export default class ProductService {
         return $api.post<FormData>('/addproduct', newProduct)
     };
 
-    static fetchProduct(CategoryId?: number, page?: number, limit?: number) {
+    static fetchProduct(page: number, limit: number, CategoryId?: number) {
         return $api.get('/getallproducts', {params: {
             CategoryId, page, limit
         }})
