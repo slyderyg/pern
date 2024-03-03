@@ -1,50 +1,78 @@
-import React, { useContext, useEffect } from 'react';
-import { Card, Stack, CardBody, Heading, CardFooter, Button, Image, Text } from '@chakra-ui/react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Stack, Button, TableContainer, Table, Tbody, Td, Th, Thead, Tr, Center } from '@chakra-ui/react';
+import { FaPencil, FaRegCircleXmark } from "react-icons/fa6";
 import { Context } from '..';
 import { observer } from 'mobx-react-lite';
 
 const EditProduct = () => {
-    const {productStore, categoryStore} = useContext(Context);
+    const {adminStore, categoryStore} = useContext(Context);
 
     useEffect(() => {
-        productStore.fetchProduct(1,9);
-        return () => {productStore.cleanStore()}
+        if (adminStore.products.length < 1) {
+            adminStore.fetchProduct(1, 9);
+        }
       }, []);
-
+    
+    const handlePagination = (page: number) => {
+        adminStore.setCurrentPage(page);
+        adminStore.fetchProduct(page, 9);
+    };
 
   return (
     <>
-    {productStore.products.map(el =>     
-        <Card
-        key={el.id}
-        direction={{ base: 'column', sm: 'row' }}
-        overflow='hidden'
-        variant='outline'
-        mt='20px'
-        >
-            <Image
-                objectFit='contain'
-                maxW={{ base: '100%', sm: '200px' }}
-                src={`http://localhost:5000/`+el.img[0]}
-                alt={el.model}
-                ml='20px'
-            />
-
-            <Stack>
-                <CardBody>
-                <Heading size='md'>{el.model} - {el.brand}</Heading>
-                <Text>Категория: {categoryStore.categories.filter(category => category.id === el.CategoryId)[0].name}</Text>
-                <Text mt='10px'>Описание: {el.description}</Text>
-                <Heading size='sm' mt='10px'>Цена: {el.price} руб.</Heading>
-                </CardBody>
-                <CardFooter>
-                <Button variant='solid' colorScheme='red' onClick={() => productStore.deleteProduct(el.id)}>
-                    Удалить
-                </Button>
-                </CardFooter>
-            </Stack>
-        </Card>)}
-    </>
+        <TableContainer>
+        <Table variant='striped' colorScheme='yellow'>
+          <Thead>
+            <Tr>
+              <Th>ID</Th>
+              <Th>Категория</Th>
+              <Th>Брэнд</Th>
+              <Th>Модель</Th>
+              <Th isNumeric>Цена</Th>
+              <Th>Действия</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {adminStore.products.map(el => 
+                <Tr key={el.id}>
+                <Td>{el.id}</Td>
+                <Td>{categoryStore.categories.filter(category => category.id === el.CategoryId)[0].name}</Td>
+                <Td>{el.brand}</Td>
+                <Td>{el.model}</Td>
+                <Td isNumeric>{el.price}</Td>
+                <Td>
+                    <Stack spacing={1} direction='row' align='center'>
+                    <Button 
+                        leftIcon={<FaRegCircleXmark />} 
+                        color='#5a6f5d' 
+                        variant='link' 
+                        size='lg' 
+                        onClick={() => adminStore.deleteProduct(el.id)}
+                    ></Button>
+                    <Button 
+                        leftIcon={<FaPencil />} 
+                        color='#5a6f5d' 
+                        variant='link' 
+                        size='lg' 
+                        onClick={() => console.log('Редактировать товар')}
+                    ></Button>
+                    </Stack>
+                </Td>
+                </Tr>
+            )}
+          </Tbody>
+        </Table>
+      </TableContainer>
+      <Center mt='20px'>
+        <Stack spacing={4} direction='row' align='center'>
+            {adminStore.pages.map(el => 
+                <Button key={el} colorScheme='yellow' size='xs' onClick={() => handlePagination(el)}>
+                    {el}
+                </Button>          
+            )}
+        </Stack>
+      </Center>
+        </>
   )
 }
 

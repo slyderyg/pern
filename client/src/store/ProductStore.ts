@@ -22,27 +22,11 @@ export default class ProductStore {
         this.products = [];
     };
 
-    async addProduct(newProduct: FormData) {
-        try {
-            await ProductService.addProduct(newProduct);
-        } catch (error: any) {
-            console.log(error.response?.data?.message);
-        }
-    };
-
     async fetchProduct(page: number, limit: number, CategoryId?: number) {
         try {
             const {data} = await ProductService.fetchProduct(page, limit, CategoryId);
             this.setProducts(data.rows);
-        } catch (error: any) {
-            console.log(error.response?.data?.message);
-        }
-    };
-
-    async deleteProduct(id: number) {
-        try {
-            await ProductService.deleteProduct(id);
-            this.fetchProduct(1,9);
+            this.setProductsCount(data.count);
         } catch (error: any) {
             console.log(error.response?.data?.message);
         }
@@ -51,7 +35,7 @@ export default class ProductStore {
     async lazyLoadProducts(page: number) {
         const {data} = await ProductService.fetchProduct(page, 9);
         this.setProducts([...this.products, ...data.rows]);
-        this.setProductsCount(data.count)
+        this.setProductsCount(data.count);
     };
 
 }

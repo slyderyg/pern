@@ -6,7 +6,7 @@ import { useDisclosure } from '@chakra-ui/react';
 
 const AddProduct = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { categoryStore, productStore } = useContext(Context);
+    const { categoryStore, adminStore, productStore } = useContext(Context);
     const [brand, setBrand] = useState<string>('');
     const [model, setModel] = useState<string>('');
     const [price, setPrice] = useState<string>('');
@@ -30,7 +30,8 @@ const AddProduct = () => {
         };
       };
       formData.append('description', description);
-      await productStore.addProduct(formData);
+      await adminStore.addProduct(formData);
+      productStore.cleanStore();
       onClose();
     };
 

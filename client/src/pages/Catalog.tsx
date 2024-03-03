@@ -15,8 +15,10 @@ const Catalog = () => {
 
   useEffect(() => {
     categoryStore.fetchCategory();
-    productStore.lazyLoadProducts(page);
-    setPage(page + 1);
+    if (productStore.products.length < 1) {
+      productStore.lazyLoadProducts(page);
+      setPage(page + 1);
+    }
   }, []);
 
   useEffect(() => {
